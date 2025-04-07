@@ -9,7 +9,6 @@ from PIL import Image
 import pytesseract
 import cv2
 import os
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -253,6 +252,7 @@ def moreinfo(v11):
 
 
 def splitv(v1):
+    print(f'Вызвын splitv с аргументом: {v1}')
     c = []
     k = -1
     for x in range(len(v1)):
@@ -421,7 +421,7 @@ def reaction(a):
 
     ses = requests.Session()
 
-    log = ses.post(url, data={'s': a})
+    log = ses.post(url, data={'s': a})  
 
     htc = log.text
 
@@ -616,7 +616,8 @@ async def image(message):
     else:
         try:
             global ans1
-            ans1 = debug(ans1)
+            
+            ans1 = debug(ans)
             ans1 = reaction(ans)
 
             if replace1(ans1).isalpha() and ans1 != 'error':
@@ -624,7 +625,8 @@ async def image(message):
             else:
                 back_in_black = 0
             await message.answer(ans1)
-        except:
+        except Exception as e:
+            print(f'error: {e}')
             ans = 'error'
 
     try:
